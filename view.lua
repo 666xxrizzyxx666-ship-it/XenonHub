@@ -1,3 +1,5 @@
+local ViewOptions = {}
+
 function ViewOptions.EnableESP(state)
     local Players = game:GetService("Players")
     for _, player in ipairs(Players:GetPlayers()) do
@@ -47,3 +49,5 @@ function ViewOptions.EnableOutline(state)
         _G.OutlineLines = {}
     end
 end
+
+return ViewOptions
