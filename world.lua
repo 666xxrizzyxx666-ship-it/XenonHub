@@ -1,1 +1,3 @@
-local WorldOptions
+local WorldOptions = {}
+
+function WorldOptions.NightVision
