@@ -26,14 +26,13 @@ MainTab:CreateSlider({
     Name = "Vitesse",
     Range = {1, 100},
     Increment = 5,
-    Suffix = "km/h",
     CurrentValue = 50,
     Callback = function(v) MainOptions.SetWalkSpeed(v) end,
 })
 MainTab:CreateToggle({
     Name = "Fly",
     CurrentValue = false,
-    Callback = function(s) if s then MainOptions.EnableFly(5) else if _G.FlyConnection then _G.FlyConnection:Disconnect() end end end,
+    Callback = function(s) MainOptions.EnableFly(s, 5) end,
 })
 MainTab:CreateToggle({
     Name = "NoClip",
@@ -45,23 +44,24 @@ MainTab:CreateToggle({
 ViewTab:CreateToggle({
     Name = "ESP",
     CurrentValue = false,
-    Callback = function(s) if s then ViewOptions.EnableESP() end end,
+    Callback = function(s) ViewOptions.EnableESP(s) end,
 })
 ViewTab:CreateToggle({
     Name = "Outline",
     CurrentValue = false,
-    Callback = function(s) if s then ViewOptions.EnableOutline() else if _G.OutlineESP then _G.OutlineESP:Disconnect() end end end,
+    Callback = function(s) ViewOptions.EnableOutline(s) end,
 })
 
 -- UTILITY
 UtilityTab:CreateToggle({
     Name = "Infinite Jump",
     CurrentValue = false,
-    Callback = function(s) if s then UtilityOptions.InfiniteJump() end end,
+    Callback = function(s) UtilityOptions.InfiniteJump(s) end,
 })
-UtilityTab:CreateButton({
+UtilityTab:CreateToggle({
     Name = "Teleport Tool",
-    Callback = function() UtilityOptions.TeleportTool() end,
+    CurrentValue = false,
+    Callback = function(s) UtilityOptions.TeleportTool(s) end,
 })
 
 -- WORLD
