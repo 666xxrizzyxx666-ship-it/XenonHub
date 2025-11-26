@@ -1,6 +1,5 @@
 local MainOptions = {}
 
--- WalkSpeed
 function MainOptions.SetWalkSpeed(value)
     local Player = game:GetService("Players").LocalPlayer
     if Player.Character and Player.Character:FindFirstChild("Humanoid") then
@@ -8,17 +7,13 @@ function MainOptions.SetWalkSpeed(value)
     end
 end
 
--- Fly
 function MainOptions.EnableFly(speed)
     local plr = game.Players.LocalPlayer
     local mouse = plr:GetMouse()
-    local localplayer = plr
     local torso, pos, gyro
     local keys = {a = false, d = false, w = false, s = false}
 
-    if workspace:FindFirstChild("Core") then
-        workspace.Core:Destroy()
-    end
+    if workspace:FindFirstChild("Core") then workspace.Core:Destroy() end
 
     local Core = Instance.new("Part")
     Core.Name = "Core"
@@ -27,7 +22,7 @@ function MainOptions.EnableFly(speed)
 
     local Weld = Instance.new("Weld", Core)
     Weld.Part0 = Core
-    Weld.Part1 = localplayer.Character:WaitForChild("LowerTorso")
+    Weld.Part1 = plr.Character:WaitForChild("LowerTorso")
     Weld.C0 = CFrame.new(0, 0, 0)
 
     torso = workspace.Core
@@ -53,7 +48,6 @@ function MainOptions.EnableFly(speed)
     mouse.KeyUp:Connect(function(key) if keys[key] ~= nil then keys[key] = false end end)
 end
 
--- NoClip
 function MainOptions.EnableNoClip()
     local Player = game:GetService("Players").LocalPlayer
     local RunService = game:GetService("RunService")
@@ -61,9 +55,7 @@ function MainOptions.EnableNoClip()
         local Character = Player.Character
         if Character then
             for _, part in pairs(Character:GetDescendants()) do
-                if part:IsA("BasePart") then
-                    part.CanCollide = false
-                end
+                if part:IsA("BasePart") then part.CanCollide = false end
             end
         end
     end)
