@@ -1,10 +1,9 @@
 local ViewOptions = {}
 
--- ESP
 function ViewOptions.EnableESP()
     local Players = game:GetService("Players")
     for _, player in ipairs(Players:GetPlayers()) do
-        if player ~= game:GetService("Players").LocalPlayer and player.Character then
+        if player ~= Players.LocalPlayer and player.Character then
             local highlight = player.Character:FindFirstChild("ESP_Highlight")
             if not highlight then
                 highlight = Instance.new("Highlight")
@@ -18,7 +17,6 @@ function ViewOptions.EnableESP()
     end
 end
 
--- Outline ESP
 function ViewOptions.EnableOutline()
     local RunService = game:GetService("RunService")
     _G.OutlineLines = {}
@@ -27,7 +25,7 @@ function ViewOptions.EnableOutline()
         local Players = game:GetService("Players")
         local screenTop = Vector2.new(Camera.ViewportSize.X / 2, 0)
         for _, player in ipairs(Players:GetPlayers()) do
-            if player ~= game:GetService("Players").LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
+            if player ~= Players.LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
                 local headPos = Camera:WorldToViewportPoint(player.Character.Head.Position)
                 if not _G.OutlineLines[player] then
                     local line = Drawing.new("Line")
