@@ -7,7 +7,7 @@ function MainOptions.SetWalkSpeed(value)
     end
 end
 
-function MainOptions.EnableFly(state, speed)
+function MainOptions.EnableFly(speed)
     local plr = game.Players.LocalPlayer
     local mouse = plr:GetMouse()
     local torso, pos, gyro
@@ -27,35 +27,25 @@ function MainOptions.EnableFly(state, speed)
 
     torso = workspace.Core
 
-    if state then
-        pos = Instance.new("BodyPosition", torso)
-        gyro = Instance.new("BodyGyro", torso)
-        pos.maxForce = Vector3.new(math.huge, math.huge, math.huge)
-        pos.position = torso.Position
-        gyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
-        gyro.cframe = torso.CFrame
+    pos = Instance.new("BodyPosition", torso)
+    gyro = Instance.new("BodyGyro", torso)
+    pos.maxForce = Vector3.new(math.huge, math.huge, math.huge)
+    pos.position = torso.Position
+    gyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+    gyro.cframe = torso.CFrame
 
-        _G.FlyConnection = game:GetService("RunService").Heartbeat:Connect(function()
-            plr.Character.Humanoid.PlatformStand = true
-            local new = gyro.cframe - gyro.cframe.p + pos.position
-            if keys.w then new = new + workspace.CurrentCamera.CFrame.LookVector * speed end
-            if keys.s then new = new - workspace.CurrentCamera.CFrame.LookVector * speed end
-            if keys.d then new = new * CFrame.new(speed, 0, 0) end
-            if keys.a then new = new * CFrame.new(-speed, 0, 0) end
-            pos.position = new.p
-            gyro.cframe = workspace.CurrentCamera.CFrame
-        end)
+    _G.FlyConnection = game:GetService("RunService").Heartbeat:Connect(function()
+        local new = gyro.cframe - gyro.cframe.p + pos.position
+        if keys.w then new = new + workspace.CurrentCamera.CFrame.LookVector * speed end
+        if keys.s then new = new - workspace.CurrentCamera.CFrame.LookVector * speed end
+        if keys.d then new = new * CFrame.new(speed, 0, 0) end
+        if keys.a then new = new * CFrame.new(-speed, 0, 0) end
+        pos.position = new.p
+        gyro.cframe = workspace.CurrentCamera.CFrame
+    end)
 
-        mouse.KeyDown:Connect(function(key) if keys[key] ~= nil then keys[key] = true end end)
-        mouse.KeyUp:Connect(function(key) if keys[key] ~= nil then keys[key] = false end end)
-    else
-        if _G.FlyConnection then _G.FlyConnection:Disconnect() _G.FlyConnection = nil end
-        if pos then pos:Destroy() end
-        if gyro then gyro:Destroy() end
-        if plr.Character and plr.Character:FindFirstChild("Humanoid") then
-            plr.Character.Humanoid.PlatformStand = false
-        end
-    end
+    mouse.KeyDown:Connect(function(key) if keys[key] ~= nil then keys[key] = true end end)
+    mouse.KeyUp:Connect(function(key) if keys[key] ~= nil then keys[key] = false end end)
 end
 
 function MainOptions.EnableNoClip()
