@@ -1,6 +1,5 @@
 local UtilityOptions = {}
 
--- Infinite Jump
 function UtilityOptions.InfiniteJump()
     local Player = game:GetService("Players").LocalPlayer
     local UIS = game:GetService("UserInputService")
@@ -9,7 +8,6 @@ function UtilityOptions.InfiniteJump()
     end)
 end
 
--- Teleport Tool
 function UtilityOptions.TeleportTool()
     local Player = game:GetService("Players").LocalPlayer
     local Mouse = Player:GetMouse()
