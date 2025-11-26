@@ -3,8 +3,8 @@ local UtilityOptions = {}
 -- Infinite Jump
 function UtilityOptions.InfiniteJump()
     local Player = game:GetService("Players").LocalPlayer
-    local UserInputService = game:GetService("UserInputService")
-    UserInputService.JumpRequest:Connect(function()
+    local UIS = game:GetService("UserInputService")
+    UIS.JumpRequest:Connect(function()
         Player.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
     end)
 end
