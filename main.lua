@@ -1,3 +1,12 @@
+local MainOptions = {}
+
+function MainOptions.SetWalkSpeed(value)
+    local Player = game:GetService("Players").LocalPlayer
+    if Player.Character and Player.Character:FindFirstChild("Humanoid") then
+        Player.Character.Humanoid.WalkSpeed = value
+    end
+end
+
 function MainOptions.EnableFly(state, speed)
     local plr = game.Players.LocalPlayer
     local mouse = plr:GetMouse()
@@ -48,3 +57,18 @@ function MainOptions.EnableFly(state, speed)
         end
     end
 end
+
+function MainOptions.EnableNoClip()
+    local Player = game:GetService("Players").LocalPlayer
+    local RunService = game:GetService("RunService")
+    _G.NoClipConnection = RunService.Stepped:Connect(function()
+        local Character = Player.Character
+        if Character then
+            for _, part in pairs(Character:GetDescendants()) do
+                if part:IsA("BasePart") then part.CanCollide = false end
+            end
+        end
+    end)
+end
+
+return MainOptions
