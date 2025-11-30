@@ -1,22 +1,27 @@
+-- Charger Rayfield (UI)
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
+-- Charger les modules depuis ton repo GitHub
 local MainOptions = loadstring(game:HttpGet("https://raw.githubusercontent.com/666xxrizzyxx666-ship-it/XenonHub/main/main.lua"))()
 local ViewOptions = loadstring(game:HttpGet("https://raw.githubusercontent.com/666xxrizzyxx666-ship-it/XenonHub/main/view.lua"))()
 local UtilityOptions = loadstring(game:HttpGet("https://raw.githubusercontent.com/666xxrizzyxx666-ship-it/XenonHub/main/utility.lua"))()
 local WorldOptions = loadstring(game:HttpGet("https://raw.githubusercontent.com/666xxrizzyxx666-ship-it/XenonHub/main/world.lua"))()
 
+-- Créer la fenêtre Xenon
 local Window = Rayfield:CreateWindow({
     Name = "Xenon",
     LoadingTitle = "Chargement...",
-    LoadingSubtitle = "Merci de patienter",
+    LoadingSubtitle = "Modules GitHub",
     ConfigurationSaving = {Enabled = false},
 })
 
+-- Onglets
 local MainTab = Window:CreateTab("MAIN", 4483362458)
 local ViewTab = Window:CreateTab("VIEW", 4483362458)
 local UtilityTab = Window:CreateTab("UTILITY", 4483362458)
 local WorldTab = Window:CreateTab("WORLD", 4483362458)
 
+-- MAIN
 MainTab:CreateSlider({
     Name = "Vitesse",
     Range = {1, 100},
@@ -34,7 +39,7 @@ MainTab:CreateToggle({
         if state then
             MainOptions.EnableFly(5)
         else
-            if _G.FlyConnection then _G.FlyConnection:Disconnect() end
+            if _G.FlyConnection then _G.FlyConnection:Disconnect() _G.FlyConnection = nil end
         end
     end,
 })
@@ -46,11 +51,12 @@ MainTab:CreateToggle({
         if state then
             MainOptions.EnableNoClip()
         else
-            if _G.NoClipConnection then _G.NoClipConnection:Disconnect() end
+            if _G.NoClipConnection then _G.NoClipConnection:Disconnect() _G.NoClipConnection = nil end
         end
     end,
 })
 
+-- VIEW
 ViewTab:CreateToggle({
     Name = "ESP",
     CurrentValue = false,
@@ -68,18 +74,23 @@ ViewTab:CreateToggle({
         if state then
             ViewOptions.EnableOutline()
         else
-            if _G.OutlineESP then _G.OutlineESP:Disconnect() end
+            if _G.OutlineESP then _G.OutlineESP:Disconnect() _G.OutlineESP = nil end
+            if _G.OutlineLines then
+                for _, line in pairs(_G.OutlineLines) do
+                    if line.Remove then line:Remove() end
+                end
+                _G.OutlineLines = {}
+            end
         end
     end,
 })
 
+-- UTILITY
 UtilityTab:CreateToggle({
     Name = "Infinite Jump",
     CurrentValue = false,
     Callback = function(state)
-        if state then
-            UtilityOptions.InfiniteJump()
-        end
+        if state then UtilityOptions.InfiniteJump() end
     end,
 })
 
@@ -90,6 +101,7 @@ UtilityTab:CreateButton({
     end,
 })
 
+-- WORLD
 WorldTab:CreateButton({
     Name = "Night Vision",
     Callback = function()
@@ -111,8 +123,9 @@ WorldTab:CreateButton({
     end,
 })
 
+-- Notification
 Rayfield:Notify({
-    Title = "Xenon chargé !",
-    Content = "Toutes les catégories sont prêtes 🚀",
+    Title = "Xenon chargé",
+    Content = "Rayfield + modules (MAIN, VIEW, UTILITY, WORLD) prêts 🚀",
     Duration = 5,
 })
