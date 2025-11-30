@@ -123,7 +123,6 @@ WorldTab:CreateButton({
     end,
 })
 
--- Notification
 Rayfield:Notify({
     Title = "Xenon chargé",
     Content = "Rayfield + modules (MAIN, VIEW, UTILITY, WORLD) prêts 🚀",
