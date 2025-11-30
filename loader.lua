@@ -33,35 +33,36 @@ MainTab:CreateSlider({
 MainTab:CreateToggle({
     Name = "Fly",
     CurrentValue = false,
-    Callback = function(s) if s then MainOptions.EnableFly(5) else if _G.FlyConnection then _G.FlyConnection:Disconnect() end end end,
+    Callback = function(state) MainOptions.EnableFly(state, 5) end,
 })
 MainTab:CreateToggle({
     Name = "NoClip",
     CurrentValue = false,
-    Callback = function(s) if s then MainOptions.EnableNoClip() else if _G.NoClipConnection then _G.NoClipConnection:Disconnect() end end end,
+    Callback = function(state) if state then MainOptions.EnableNoClip() else if _G.NoClipConnection then _G.NoClipConnection:Disconnect() _G.NoClipConnection = nil end end end,
 })
 
 -- VIEW
 ViewTab:CreateToggle({
     Name = "ESP",
     CurrentValue = false,
-    Callback = function(s) if s then ViewOptions.EnableESP() end end,
+    Callback = function(state) ViewOptions.EnableESP(state) end,
 })
 ViewTab:CreateToggle({
     Name = "Outline",
     CurrentValue = false,
-    Callback = function(s) if s then ViewOptions.EnableOutline() else if _G.OutlineESP then _G.OutlineESP:Disconnect() end end end,
+    Callback = function(state) ViewOptions.EnableOutline(state) end,
 })
 
 -- UTILITY
 UtilityTab:CreateToggle({
     Name = "Infinite Jump",
     CurrentValue = false,
-    Callback = function(s) if s then UtilityOptions.InfiniteJump() end end,
+    Callback = function(state) UtilityOptions.InfiniteJump(state) end,
 })
-UtilityTab:CreateButton({
+UtilityTab:CreateToggle({
     Name = "Teleport Tool",
-    Callback = function() UtilityOptions.TeleportTool() end,
+    CurrentValue = false,
+    Callback = function(state) UtilityOptions.TeleportTool(state) end,
 })
 
 -- WORLD
@@ -80,6 +81,6 @@ WorldTab:CreateButton({
 
 Rayfield:Notify({
     Title = "Xenon chargé",
-    Content = "Rayfield + modules (MAIN, VIEW, UTILITY, WORLD) prêts 🚀",
+    Content = "Toutes les options sont prêtes 🚀",
     Duration = 5,
 })
