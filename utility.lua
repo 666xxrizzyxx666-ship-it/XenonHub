@@ -4,4 +4,18 @@ function UtilityOptions.InfiniteJump()
     local Player = game:GetService("Players").LocalPlayer
     local UIS = game:GetService("UserInputService")
     UIS.JumpRequest:Connect(function()
-        Player.Character:FindFirstChild
+        Player.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+    end)
+end
+
+function UtilityOptions.TeleportTool()
+    local Player = game:GetService("Players").LocalPlayer
+    local Mouse = Player:GetMouse()
+    Mouse.Button1Down:Connect(function()
+        if Mouse.Target then
+            Player.Character:MoveTo(Mouse.Hit.p)
+        end
+    end)
+end
+
+return UtilityOptions
