@@ -1,7 +1,7 @@
 -- Charger Rayfield (UI)
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
--- Charger les modules depuis ton repo GitHub
+-- Charger les modules depuis ton repo
 local MainOptions = loadstring(game:HttpGet("https://raw.githubusercontent.com/666xxrizzyxx666-ship-it/XenonHub/main/main.lua"))()
 local ViewOptions = loadstring(game:HttpGet("https://raw.githubusercontent.com/666xxrizzyxx666-ship-it/XenonHub/main/view.lua"))()
 local UtilityOptions = loadstring(game:HttpGet("https://raw.githubusercontent.com/666xxrizzyxx666-ship-it/XenonHub/main/utility.lua"))()
@@ -26,101 +26,56 @@ MainTab:CreateSlider({
     Name = "Vitesse",
     Range = {1, 100},
     Increment = 5,
+    Suffix = "km/h",
     CurrentValue = 50,
-    Callback = function(v)
-        MainOptions.SetWalkSpeed(v)
-    end,
+    Callback = function(v) MainOptions.SetWalkSpeed(v) end,
 })
-
 MainTab:CreateToggle({
     Name = "Fly",
     CurrentValue = false,
-    Callback = function(state)
-        if state then
-            MainOptions.EnableFly(5)
-        else
-            if _G.FlyConnection then _G.FlyConnection:Disconnect() _G.FlyConnection = nil end
-        end
-    end,
+    Callback = function(s) if s then MainOptions.EnableFly(5) else if _G.FlyConnection then _G.FlyConnection:Disconnect() end end end,
 })
-
 MainTab:CreateToggle({
     Name = "NoClip",
     CurrentValue = false,
-    Callback = function(state)
-        if state then
-            MainOptions.EnableNoClip()
-        else
-            if _G.NoClipConnection then _G.NoClipConnection:Disconnect() _G.NoClipConnection = nil end
-        end
-    end,
+    Callback = function(s) if s then MainOptions.EnableNoClip() else if _G.NoClipConnection then _G.NoClipConnection:Disconnect() end end end,
 })
 
 -- VIEW
 ViewTab:CreateToggle({
     Name = "ESP",
     CurrentValue = false,
-    Callback = function(state)
-        if state then
-            ViewOptions.EnableESP()
-        end
-    end,
+    Callback = function(s) if s then ViewOptions.EnableESP() end end,
 })
-
 ViewTab:CreateToggle({
     Name = "Outline",
     CurrentValue = false,
-    Callback = function(state)
-        if state then
-            ViewOptions.EnableOutline()
-        else
-            if _G.OutlineESP then _G.OutlineESP:Disconnect() _G.OutlineESP = nil end
-            if _G.OutlineLines then
-                for _, line in pairs(_G.OutlineLines) do
-                    if line.Remove then line:Remove() end
-                end
-                _G.OutlineLines = {}
-            end
-        end
-    end,
+    Callback = function(s) if s then ViewOptions.EnableOutline() else if _G.OutlineESP then _G.OutlineESP:Disconnect() end end end,
 })
 
 -- UTILITY
 UtilityTab:CreateToggle({
     Name = "Infinite Jump",
     CurrentValue = false,
-    Callback = function(state)
-        if state then UtilityOptions.InfiniteJump() end
-    end,
+    Callback = function(s) if s then UtilityOptions.InfiniteJump() end end,
 })
-
 UtilityTab:CreateButton({
     Name = "Teleport Tool",
-    Callback = function()
-        UtilityOptions.TeleportTool()
-    end,
+    Callback = function() UtilityOptions.TeleportTool() end,
 })
 
 -- WORLD
 WorldTab:CreateButton({
     Name = "Night Vision",
-    Callback = function()
-        WorldOptions.NightVision()
-    end,
+    Callback = function() WorldOptions.NightVision() end,
 })
-
 WorldTab:CreateButton({
     Name = "Low Gravity",
-    Callback = function()
-        WorldOptions.LowGravity()
-    end,
+    Callback = function() WorldOptions.LowGravity() end,
 })
-
 WorldTab:CreateButton({
     Name = "Normal Gravity",
-    Callback = function()
-        WorldOptions.NormalGravity()
-    end,
+    Callback = function() WorldOptions.NormalGravity() end,
 })
 
 Rayfield:Notify({
